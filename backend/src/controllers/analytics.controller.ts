@@ -74,3 +74,4 @@ export const getAnalytics = (_req: Request, res: Response) => {
 
   return res.status(200).json(response);
 };
+

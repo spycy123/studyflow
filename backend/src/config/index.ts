@@ -9,3 +9,4 @@ export const config = {
   jwtSecret: process.env.JWT_SECRET || 'studyflow-development-secret-key-change-in-prod',
   databaseUrl: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/studyflow',
 };
+

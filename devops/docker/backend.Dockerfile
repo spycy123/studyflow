@@ -27,3 +27,4 @@ EXPOSE 4000
 USER node
 
 CMD ["node", "dist/server.js"]
+

@@ -21,3 +21,4 @@ psql -U postgres -d studyflow -f schema.sql
 # Muat data awal pengujian
 psql -U postgres -d studyflow -f seeds.sql
 ```
+

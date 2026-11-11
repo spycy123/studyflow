@@ -25,3 +25,4 @@ Dokumen ini menetapkan strategi pengujian untuk sistem StudyFlow, mencakup antar
 ## 4. Pengujian Regresi & Performa
 - Pemeriksaan beban query saat memuat > 500 tugas aktif.
 - Uji responsivitas antarmuka pada resolusi Mobile (375px), Tablet (768px), dan Desktop (1440px).
+

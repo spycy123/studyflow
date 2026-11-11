@@ -90,3 +90,4 @@ CREATE TABLE IF NOT EXISTS task_attachments (
 );
 
 CREATE INDEX IF NOT EXISTS idx_task_attachments_task_id ON task_attachments(task_id);
+

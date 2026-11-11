@@ -32,3 +32,4 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   console.error('Unhandled Application Error:', err);
   res.status(500).json({ success: false, error: 'Terjadi kesalahan internal server.' });
 });
+

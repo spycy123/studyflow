@@ -42,3 +42,4 @@ describe('StudyFlow Quality Assurance Smoke Test Suite', () => {
     assert.ok(validTransitions.review.includes('done'));
   });
 });
+
