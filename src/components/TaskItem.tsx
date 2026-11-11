@@ -14,7 +14,12 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import type { Task, Course } from '../types';
-import { getCategoryLabel, getPriorityBadge, getCourseColorClasses, formatDeadlineText } from '../utils/formatters';
+import {
+  getPriorityBadge,
+  getCourseColorClasses,
+  getCategoryBadge,
+  formatDeadlineText,
+} from '../utils/formatters';
 import { soundEffects } from '../utils/audio';
 
 interface TaskItemProps {
@@ -41,6 +46,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({
 
   const isDone = task.status === 'done';
   const priorityBadge = getPriorityBadge(task.priority);
+  const categoryBadge = getCategoryBadge(task.category);
   const courseStyle = course ? getCourseColorClasses(course.color) : null;
   const deadline = formatDeadlineText(task.dueDate, task.dueTime);
 
@@ -52,7 +58,6 @@ export const TaskItem: React.FC<TaskItemProps> = ({
     soundEffects.playClick();
     if (!isDone) {
       soundEffects.playTaskComplete();
-      // Trigger festive confetti if urgent or high priority
       if (task.priority === 'urgent' || task.priority === 'high') {
         confetti({
           particleCount: 50,
@@ -73,13 +78,15 @@ export const TaskItem: React.FC<TaskItemProps> = ({
 
   return (
     <div
-      className={`group relative rounded-2xl border transition-all duration-200 ${
+      className={`group relative rounded-2xl border transition-all duration-200 overflow-hidden ${
+        courseStyle ? courseStyle.borderAccent : 'border-l-blue-500'
+      } border-l-[4px] ${
         isDone
-          ? 'bg-slate-50/70 dark:bg-zinc-900/40 border-slate-200/60 dark:border-zinc-800/60 opacity-80'
+          ? 'bg-slate-50/70 dark:bg-zinc-900/40 border-slate-200/60 dark:border-zinc-800/60 opacity-75'
           : deadline.isOverdue
-          ? 'bg-rose-50/30 dark:bg-rose-950/10 border-rose-200/80 dark:border-rose-900/40 shadow-sm'
+          ? 'bg-gradient-to-r from-rose-50/40 via-white to-white dark:from-rose-950/20 dark:via-zinc-900 dark:to-zinc-900 border-rose-200/90 dark:border-rose-900/40 shadow-soft hover:shadow-soft-lg'
           : deadline.isToday
-          ? 'bg-amber-50/30 dark:bg-amber-950/10 border-amber-200/80 dark:border-amber-900/40 shadow-sm'
+          ? 'bg-gradient-to-r from-amber-50/40 via-white to-white dark:from-amber-950/20 dark:via-zinc-900 dark:to-zinc-900 border-amber-200/90 dark:border-amber-900/40 shadow-soft hover:shadow-soft-lg'
           : 'bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800/80 shadow-soft hover:shadow-soft-lg hover:border-slate-300 dark:hover:border-zinc-700'
       }`}
     >
@@ -95,7 +102,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({
             {isDone ? (
               <CheckCircle2 className="w-5 h-5 text-emerald-500 fill-emerald-500/15" />
             ) : (
-              <Circle className="w-5 h-5 text-slate-400 hover:text-blue-500" />
+              <Circle className="w-5 h-5 text-slate-300 dark:text-zinc-600 hover:text-blue-500 transition" />
             )}
           </button>
 
@@ -105,23 +112,26 @@ export const TaskItem: React.FC<TaskItemProps> = ({
             <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
               {/* Course badge */}
               <span
-                className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${
+                className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
                   courseStyle
-                    ? `${courseStyle.badge} ${courseStyle.border}`
+                    ? `${courseStyle.badge}`
                     : 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-zinc-800 dark:text-zinc-300 dark:border-zinc-700'
                 }`}
               >
                 {getCourseDisplayName()}
               </span>
 
-              {/* Category */}
-              <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400">
-                {getCategoryLabel(task.category)}
+              {/* Category Badge with subtle harmonic color */}
+              <span
+                className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border flex items-center gap-1 ${categoryBadge.bg}`}
+              >
+                <span className={`w-1.5 h-1.5 rounded-full ${categoryBadge.dot}`} />
+                {categoryBadge.label}
               </span>
 
-              {/* Priority */}
+              {/* Priority Badge */}
               <span
-                className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border flex items-center gap-1 ${priorityBadge.bg}`}
+                className={`text-[10px] font-bold px-2 py-0.5 rounded-full border flex items-center gap-1 ${priorityBadge.bg}`}
               >
                 <span className={`w-1.5 h-1.5 rounded-full ${priorityBadge.dot}`} />
                 {priorityBadge.label}
@@ -131,9 +141,9 @@ export const TaskItem: React.FC<TaskItemProps> = ({
             {/* Task Title */}
             <h3
               onClick={() => setIsExpanded(!isExpanded)}
-              className={`text-sm sm:text-base font-semibold cursor-pointer tracking-tight transition ${
+              className={`text-sm sm:text-base font-bold cursor-pointer tracking-tight transition ${
                 isDone
-                  ? 'line-through text-slate-400 dark:text-zinc-500'
+                  ? 'line-through text-slate-400 dark:text-zinc-500 font-normal'
                   : 'text-slate-900 dark:text-zinc-100 hover:text-blue-600 dark:hover:text-blue-400'
               }`}
             >
@@ -169,9 +179,9 @@ export const TaskItem: React.FC<TaskItemProps> = ({
                           href={att.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-50 dark:bg-zinc-800 dark:hover:bg-blue-950/40 text-blue-600 dark:text-blue-400 text-xs transition"
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-50/70 hover:bg-blue-100 dark:bg-blue-950/40 dark:hover:bg-blue-900/50 border border-blue-200/60 dark:border-blue-800/40 text-blue-700 dark:text-blue-300 text-xs font-medium transition"
                         >
-                          <ExternalLink className="w-3 h-3" />
+                          <ExternalLink className="w-3 h-3 text-blue-500" />
                           <span className="truncate max-w-[150px]">{att.title}</span>
                         </a>
                       ))}
@@ -186,22 +196,24 @@ export const TaskItem: React.FC<TaskItemProps> = ({
               <div className="mt-2.5">
                 <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-zinc-400 mb-1">
                   <span className="flex items-center gap-1 font-medium">
-                    <Layers className="w-3 h-3" />
+                    <Layers className="w-3 h-3 text-slate-400" />
                     Progres Sub-langkah: {completedSubtasks}/{totalSubtasks}
                   </span>
-                  <span>{Math.round(subtaskProgress)}%</span>
+                  <span className="font-semibold">{Math.round(subtaskProgress)}%</span>
                 </div>
                 <div className="w-full h-1.5 bg-slate-100 dark:bg-zinc-800 rounded-full overflow-hidden">
                   <div
                     className={`h-full rounded-full transition-all duration-300 ${
-                      subtaskProgress === 100 ? 'bg-emerald-500' : 'bg-blue-500'
+                      subtaskProgress === 100
+                        ? 'bg-gradient-to-r from-emerald-500 to-teal-500'
+                        : 'bg-gradient-to-r from-blue-500 to-indigo-500'
                     }`}
                     style={{ width: `${subtaskProgress}%` }}
                   />
                 </div>
 
                 {isExpanded && (
-                  <div className="mt-2 space-y-1 pl-1">
+                  <div className="mt-2.5 space-y-1.5 pl-1">
                     {task.subtasks.map((st) => (
                       <label
                         key={st.id}
@@ -233,14 +245,14 @@ export const TaskItem: React.FC<TaskItemProps> = ({
               <div className="flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5 text-slate-400" />
                 <span
-                  className={`font-medium ${
+                  className={`font-semibold ${
                     isDone
-                      ? 'text-slate-400 dark:text-zinc-500'
+                      ? 'text-slate-400 dark:text-zinc-500 font-normal'
                       : deadline.isOverdue
-                      ? 'text-rose-600 dark:text-rose-400 font-semibold'
+                      ? 'text-rose-600 dark:text-rose-400'
                       : deadline.isToday
-                      ? 'text-amber-600 dark:text-amber-400 font-semibold'
-                      : 'text-slate-500 dark:text-zinc-400'
+                      ? 'text-amber-600 dark:text-amber-400'
+                      : 'text-slate-600 dark:text-zinc-400'
                   }`}
                 >
                   {deadline.text}
@@ -259,7 +271,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({
                   <button
                     type="button"
                     onClick={() => onStartFocus(task)}
-                    className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium text-slate-600 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-zinc-800 rounded-lg transition"
+                    className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-semibold text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
                     title="Mulai sesi fokus Pomodoro untuk tugas ini"
                   >
                     <Play className="w-3 h-3 fill-current" />

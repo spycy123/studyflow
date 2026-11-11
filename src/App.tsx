@@ -296,7 +296,7 @@ export function App() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-zinc-950 text-slate-800 dark:text-zinc-100 transition-colors">
+    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-zinc-950 bg-ambient-glow text-slate-800 dark:text-zinc-100 transition-colors">
       {/* Navbar Header */}
       <Navbar
         currentTab={currentTab}
