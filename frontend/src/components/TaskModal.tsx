@@ -192,9 +192,9 @@ export const TaskModal: React.FC<TaskModalProps> = ({
                   ))}
                 </optgroup>
                 <optgroup label="Lainnya">
-                  <option value="org">🏛️ Organisasi / BEM / UKM</option>
-                  <option value="skripsi">🎓 Tugas Akhir / Skripsi / Magang</option>
-                  <option value="general">📌 Umum / Pribadi / Keuangan</option>
+                  <option value="org">Organisasi / BEM / UKM</option>
+                  <option value="skripsi">Tugas Akhir / Skripsi / Magang</option>
+                  <option value="general">Umum / Pribadi / Keuangan</option>
                 </optgroup>
               </select>
             </div>
@@ -208,14 +208,14 @@ export const TaskModal: React.FC<TaskModalProps> = ({
                 onChange={(e) => setCategory(e.target.value as TaskCategory)}
                 className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-zinc-700 bg-slate-50/50 dark:bg-zinc-800/60 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
               >
-                <option value="tugas">📝 Tugas Kuliah</option>
-                <option value="laporan">📊 Laporan / Praktikum</option>
-                <option value="kuis">⚡ Kuis / Responsi</option>
-                <option value="proyek">💼 Proyek / Tugas Besar (Tubes)</option>
-                <option value="uts_uas">🎯 UTS / UAS</option>
-                <option value="skripsi">📚 Skripsi / Proposal</option>
-                <option value="organisasi">👥 Rapat Organisasi</option>
-                <option value="lainnya">📦 Lain-lain</option>
+                <option value="tugas">Tugas Kuliah</option>
+                <option value="laporan">Laporan / Praktikum</option>
+                <option value="kuis">Kuis / Responsi</option>
+                <option value="proyek">Proyek / Tugas Besar (Tubes)</option>
+                <option value="uts_uas">UTS / UAS</option>
+                <option value="skripsi">Skripsi / Proposal</option>
+                <option value="organisasi">Rapat Organisasi</option>
+                <option value="lainnya">Lain-lain</option>
               </select>
             </div>
           </div>
@@ -258,10 +258,10 @@ export const TaskModal: React.FC<TaskModalProps> = ({
                 onChange={(e) => setPriority(e.target.value as Priority)}
                 className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-zinc-700 bg-slate-50/50 dark:bg-zinc-800/60 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 font-medium"
               >
-                <option value="urgent">🔥 Mendesak (H-1 / Segera)</option>
-                <option value="high">⚠️ Tinggi (Penting)</option>
-                <option value="medium">🔷 Sedang</option>
-                <option value="low">⚪ Santai / Rendah</option>
+                <option value="urgent">Mendesak (Tenggat Dekat)</option>
+                <option value="high">Tinggi (Penting)</option>
+                <option value="medium">Sedang</option>
+                <option value="low">Rendah</option>
               </select>
             </div>
           </div>

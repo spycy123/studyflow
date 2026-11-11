@@ -1,31 +1,25 @@
 {
-  "name": "jajal",
+  "name": "studyflow-workspace",
+  "version": "1.0.0",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "description": "StudyFlow - Academic Management & Productivity System",
+  "workspaces": [
+    "frontend",
+    "backend",
+    "qa"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "oxlint",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "canvas-confetti": "^1.9.4",
-    "lucide-react": "^1.70.0",
-    "react": "^19.3.1",
-    "react-dom": "^19.3.1"
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "dev:backend": "npm run dev --workspace=backend",
+    "build:frontend": "npm run build --workspace=frontend",
+    "build:backend": "npm run build --workspace=backend",
+    "build": "npm run build:frontend && npm run build:backend",
+    "test": "node --experimental-strip-types --test qa/tests/api/smoke.test.ts",
+    "docker:up": "docker compose -f devops/docker-compose.yml up --build",
+    "docker:down": "docker compose -f devops/docker-compose.yml down"
   },
   "devDependencies": {
-    "@types/canvas-confetti": "^1.9.0",
-    "@types/node": "^24.19.2",
-    "@types/react": "^19.3.0",
-    "@types/react-dom": "^19.3.0",
-    "@vitejs/plugin-react": "^6.1.2",
-    "autoprefixer": "^10.6.2",
-    "oxlint": "^1.90.0",
-    "postcss": "^8.5.32",
-    "tailwindcss": "^3.4.17",
-    "typescript": "~7.0.2",
-    "vite": "^8.3.6"
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
   }
 }

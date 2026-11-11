@@ -65,7 +65,7 @@ export const StatsOverview: React.FC<StatsOverviewProps> = ({
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
-              {getGreeting()}, <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">{studentFirstName}</span>! 🎓
+              {getGreeting()}, <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">{studentFirstName}</span>
             </h1>
           </div>
           <p className="text-xs sm:text-sm text-slate-500 dark:text-zinc-400 mt-1 flex items-center gap-1.5">
@@ -80,7 +80,7 @@ export const StatsOverview: React.FC<StatsOverviewProps> = ({
                 <span>{currentUser.university}</span>
               </>
             ) : (
-              'Kelola tugas kuliah, praktikum, dan agenda organisasi dengan teratur tanpa stres.'
+              'Manajemen penugasan, jadwal mata kuliah, dan perencanaan akademik.'
             )}
           </p>
         </div>
@@ -209,9 +209,9 @@ export const StatsOverview: React.FC<StatsOverviewProps> = ({
                 {c.code} - {c.name}
               </option>
             ))}
-            <option value="org">🏛️ Organisasi / UKM</option>
-            <option value="skripsi">🎓 Skripsi / TA</option>
-            <option value="general">📌 Umum / Pribadi</option>
+            <option value="org">Organisasi / UKM</option>
+            <option value="skripsi">Skripsi / Tugas Akhir</option>
+            <option value="general">Umum / Pribadi</option>
           </select>
 
           {/* Quick status filter pills */}

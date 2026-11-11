@@ -183,7 +183,7 @@ export const ScheduleView: React.FC<ScheduleViewProps> = ({
                         {relatedTasks.length > 0 && (
                           <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-zinc-800 text-xs">
                             <span className="text-[11px] font-bold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/50 px-2 py-0.5 rounded-md border border-amber-200/60 dark:border-amber-800/40 inline-flex items-center gap-1">
-                              ⚠️ {relatedTasks.length} Tugas aktif untuk mata kuliah ini
+                              {relatedTasks.length} tugas aktif untuk mata kuliah ini
                             </span>
                           </div>
                         )}

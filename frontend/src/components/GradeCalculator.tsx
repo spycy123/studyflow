@@ -57,12 +57,12 @@ export const GradeCalculator: React.FC<GradeCalculatorProps> = ({
             </div>
             <p className="text-xs text-indigo-100 mt-2 leading-relaxed">
               {ipsNumber >= 3.8
-                ? '🌟 Luar biasa! Berpotensi Cum Laude / Dean\'s List.'
+                ? 'Predikat Dengan Pujian (Cum Laude / Dean\'s List).'
                 : ipsNumber >= 3.5
-                ? '👍 Sangat memuaskan. Pertahankan performa tugas & kuis!'
+                ? 'Predikat Sangat Memuaskan. Pertahankan performa tugas dan ujian.'
                 : ipsNumber >= 3.0
-                ? '📚 Cukup baik. Masih bisa didongkrak lewat tugas besar.'
-                : '⚠️ Perlu perbaikan target nilai pada beberapa matkul.'}
+                ? 'Predikat Memuaskan. Target nilai masih dapat ditingkatkan.'
+                : 'Perlu optimalisasi target nilai pada mata kuliah terkait.'}
             </p>
           </div>
 
@@ -114,7 +114,7 @@ export const GradeCalculator: React.FC<GradeCalculatorProps> = ({
           </div>
 
           <div className="mt-4 text-[11px] font-semibold text-blue-600 dark:text-blue-400">
-            💡 Prioritaskan tugas berbobot mutu tinggi.
+            Fokuskan pengerjaan tugas pada mata kuliah berbobot SKS besar.
           </div>
         </div>
       </div>
@@ -173,7 +173,7 @@ export const GradeCalculator: React.FC<GradeCalculatorProps> = ({
                         </span>
                       ) : (
                         <span className="text-emerald-700 dark:text-emerald-400 font-semibold bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-full border border-emerald-200/60 dark:border-emerald-900/40 text-[11px]">
-                          ✓ Bersih
+                          Tuntas
                         </span>
                       )}
                     </td>

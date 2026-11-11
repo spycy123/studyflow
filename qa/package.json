@@ -1,0 +1,15 @@
+{
+  "name": "studyflow-qa",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Quality assurance and automated testing suite for StudyFlow",
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-strip-types --test tests/api/smoke.test.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

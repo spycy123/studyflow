@@ -1,0 +1,55 @@
+services:
+  database:
+    image: postgres:15-alpine
+    container_name: studyflow-database
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-studyflow}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ../database/seeds.sql:/docker-entrypoint-initdb.d/02-seeds.sql:ro
+    networks:
+      - studyflow-network
+
+  backend:
+    build:
+      context: ..
+      dockerfile: devops/docker/backend.Dockerfile
+    container_name: studyflow-backend
+    restart: unless-stopped
+    environment:
+      PORT: 4000
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@database:5432/${POSTGRES_DB:-studyflow}
+      CORS_ORIGIN: http://localhost:80
+    ports:
+      - "4000:4000"
+    depends_on:
+      - database
+    networks:
+      - studyflow-network
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: devops/docker/frontend.Dockerfile
+    container_name: studyflow-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - studyflow-network
+
+networks:
+  studyflow-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

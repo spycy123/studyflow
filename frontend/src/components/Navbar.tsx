@@ -71,7 +71,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     },
     {
       id: 'pomodoro',
-      label: 'Fokus Nugas',
+      label: 'Fokus Belajar',
       icon: Timer,
     },
     {
