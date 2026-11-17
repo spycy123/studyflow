@@ -11,9 +11,9 @@ StudyFlow memiliki 3 role pengguna terdaftar:
 ```mermaid
 flowchart TD
     subgraph Roles["Role Pengguna Aplikasi"]
-        MHS["🎓 Mahasiswa\n(Student)"]
-        DSN["👨‍🏫 Dosen\n(Lecturer)"]
-        ADM["🛡️ Admin\n(Administrator)"]
+        MHS["Mahasiswa\n(Student)"]
+        DSN["Dosen\n(Lecturer)"]
+        ADM["Admin\n(Administrator)"]
     end
 
     subgraph CoreFeatures["Fitur & Otoritas"]
@@ -34,7 +34,7 @@ flowchart TD
 
 ## 2. Rincian Peran & Kredensial Demo
 
-### 🎓 Role 1: Mahasiswa (`mahasiswa`) — Primary User
+### Role 1: Mahasiswa (`mahasiswa`) — Primary User
 - **Fungsi Utama:** Mengatur seluruh kegiatan akademik secara mandiri untuk meningkatkan keteraturan dan produktivitas belajar.
 - **Kredensial Demo:**
   - **NIM:** `220101034`
@@ -50,7 +50,7 @@ flowchart TD
 
 ---
 
-### 👨‍🏫 Role 2: Dosen / Pengajar (`dosen`)
+### Role 2: Dosen / Pengajar (`dosen`)
 - **Fungsi Utama:** Mengelola jadwal perkuliahan mata kuliah yang diampu dan meninjau beban tugas yang diberikan kepada mahasiswa.
 - **Kredensial Demo:**
   - **NIP / Identitas:** `198504122010121001`
@@ -63,7 +63,7 @@ flowchart TD
 
 ---
 
-### 🛡️ Role 3: Administrator Akademik (`admin`)
+### Role 3: Administrator Akademik (`admin`)
 - **Fungsi Utama:** Menjaga keandalan sistem, memantau kesehatan server, mengelola master data kurikulum, serta mengaudit integritas platform.
 - **Kredensial Demo:**
   - **ID Admin:** `ADMIN001`
@@ -83,17 +83,17 @@ Tabel berikut menunjukkan hak akses operasi CRUD (*Create, Read, Update, Delete*
 
 | Modul / Sumber Daya | Operasi | Mahasiswa (`mahasiswa`) | Dosen (`dosen`) | Admin (`admin`) |
 | :--- | :---: | :---: | :---: | :---: |
-| **Autentikasi Akun** | Register / Login | ✅ Akun Pribadi | ✅ Akun Pribadi | ✅ Hak Penuh |
-| **Profil Pengguna** | Read / Update | ✅ Profil Sendiri | ✅ Profil Sendiri | ✅ Semua Pengguna |
-| **Jadwal Kuliah (Courses)** | Create / Update / Delete | ✅ Jadwal Sendiri | ❌ Hanya Jadwal Ajar | ✅ Seluruh Matakuliah |
-| **Tugas Kuliah (Tasks)** | Create / Read / Update | ✅ Tugas Sendiri | 👁️ Monitoring Agregat | ✅ Seluruh Data |
-| **Checklist Sub-tugas** | Tambah / Centang Status | ✅ Bebas Akses | ❌ Tidak Ada | ✅ Seluruh Data |
-| **Lampiran Tugas (Links)** | Tambah / Hapus Tautan | ✅ Bebas Akses | ❌ Tidak Ada | ✅ Seluruh Data |
-| **Pomodoro Focus Timer** | Jalankan / Hubungkan Tugas | ✅ Bebas Akses | ❌ Tidak Ada | ❌ Tidak Ada |
-| **Simulasi IPS / Nilai** | Input Target / Kalkulasi | ✅ Simulasi Pribadi | 👁️ Penilaian Mata Kuliah | ✅ Standar Skala Mutu |
-| **Ekspor / Impor JSON** | Backup & Restore Data | ✅ Data Pribadi | ❌ Tidak Ada | ✅ Backup Database |
-| **Healthcheck Server** | GET `/health` | ❌ Tidak Relevan | ❌ Tidak Relevan | ✅ Hak Penuh |
-| **Migrasi Database** | Eksekusi DDL Skema | ❌ Dibatasi | ❌ Dibatasi | ✅ Hak Penuh |
+| **Autentikasi Akun** | Register / Login | Ya (Akun Pribadi) | Ya (Akun Pribadi) | Ya (Hak Penuh) |
+| **Profil Pengguna** | Read / Update | Ya (Profil Sendiri) | Ya (Profil Sendiri) | Ya (Semua Pengguna) |
+| **Jadwal Kuliah (Courses)** | Create / Update / Delete | Ya (Jadwal Sendiri) | Tidak (Hanya Jadwal Ajar) | Ya (Seluruh Matakuliah) |
+| **Tugas Kuliah (Tasks)** | Create / Read / Update | Ya (Tugas Sendiri) | Terbatas (Monitoring) | Ya (Seluruh Data) |
+| **Checklist Sub-tugas** | Tambah / Centang Status | Ya (Bebas Akses) | Tidak Ada | Ya (Seluruh Data) |
+| **Lampiran Tugas (Links)** | Tambah / Hapus Tautan | Ya (Bebas Akses) | Tidak Ada | Ya (Seluruh Data) |
+| **Pomodoro Focus Timer** | Jalankan / Hubungkan Tugas | Ya (Bebas Akses) | Tidak Ada | Tidak Ada |
+| **Simulasi IPS / Nilai** | Input Target / Kalkulasi | Ya (Simulasi Pribadi) | Terbatas (Nilai Matkul) | Ya (Standar Mutu) |
+| **Ekspor / Impor JSON** | Backup & Restore Data | Ya (Data Pribadi) | Tidak Ada | Ya (Backup DB) |
+| **Healthcheck Server** | GET `/health` | Tidak Relevan | Tidak Relevan | Ya (Hak Penuh) |
+| **Migrasi Database** | Eksekusi DDL Skema | Dibatasi | Dibatasi | Ya (Hak Penuh) |
 
 > **Keterangan:**  
-> ✅ = Diizinkan Penuh | ❌ = Tidak Diizinkan / Dibatasi | 👁️ = Izin Baca Terbatas (Read-Only)
+> Ya = Diizinkan Penuh | Tidak / Dibatasi = Tidak Diizinkan | Terbatas = Izin Baca Terbatas (Read-Only)

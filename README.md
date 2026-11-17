@@ -4,7 +4,7 @@ Sistem manajemen tugas perkuliahan, jadwal mata kuliah mingguan, pelacak beban S
 
 ---
 
-##  Dokumentasi Proyek (`docs/`)
+## Dokumentasi Proyek (`docs/`)
 
 Seluruh dokumentasi teknis, cetak biru arsitektur, dan matriks hak akses disimpan terpusat dalam folder **[`docs/`](./docs/README.md)**:
 
@@ -18,7 +18,7 @@ Seluruh dokumentasi teknis, cetak biru arsitektur, dan matriks hak akses disimpa
 
 ---
 
-##  Arsitektur Repositori
+## Arsitektur Repositori
 
 ```
 jajal/
@@ -59,7 +59,7 @@ jajal/
 
 ---
 
-##  Akun Demo & Hak Akses Cepat (3 Role)
+## Akun Demo & Hak Akses Cepat (3 Role)
 
 Aplikasi telah dilengkapi dengan data benih (*seed data*) dan tombol **1-Klik Demo** pada halaman login untuk ketiga role:
 
@@ -71,7 +71,7 @@ Aplikasi telah dilengkapi dengan data benih (*seed data*) dan tombol **1-Klik De
 
 ---
 
-##  Panduan Menjalankan Sistem
+## Panduan Menjalankan Sistem
 
 ### Persyaratan Sistem:
 - **Node.js**: Versi 20 LTS atau lebih tinggi
@@ -155,7 +155,7 @@ npm run docker:down
 
 ---
 
-##  Spesifikasi Endpoint REST API (v1)
+## Spesifikasi Endpoint REST API (v1)
 
 | Metode | Endpoint | Deskripsi | Hak Akses |
 | :--- | :--- | :--- | :--- |

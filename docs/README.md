@@ -4,7 +4,7 @@ Selamat datang di pusat dokumentasi resmi **StudyFlow** (*Academic Task & Course
 
 ---
 
-##  Struktur Navigasi Dokumentasi
+## Struktur Navigasi Dokumentasi
 
 ```
 docs/
@@ -21,7 +21,7 @@ docs/
 
 ---
 
-##  Ringkasan Bagian Dokumen
+## Ringkasan Bagian Dokumen
 
 ### 1. [Arsitektur Sistem (architecture/system-architecture.md)](./architecture/system-architecture.md)
 - **Gaya Arsitektur:** Modular Monorepo berbasis NPM Workspaces dengan strategi *Offline-First Hybrid*.

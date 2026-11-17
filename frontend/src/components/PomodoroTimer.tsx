@@ -379,7 +379,7 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
             </p>
             {incompleteTasks.length === 0 ? (
               <div className="text-xs text-slate-400 italic">
-                Semua tugas perkuliahan sudah selesai! 🎉
+                Semua tugas perkuliahan sudah selesai.
               </div>
             ) : (
               <div className="space-y-1.5 max-h-48 overflow-y-auto pr-1">
