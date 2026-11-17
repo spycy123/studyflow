@@ -62,9 +62,12 @@ export interface PomodoroSettings {
   autoStartBreaks: boolean;
 }
 
+export type UserRole = 'mahasiswa' | 'dosen' | 'admin';
+
 export interface UserProfile {
   nim: string;
   name: string;
+  role?: UserRole;
   major: string;
   faculty: string;
   semester: number;

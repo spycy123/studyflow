@@ -155,35 +155,35 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
 
   const incompleteTasks = tasks.filter((t) => t.status !== 'done');
 
-  // Mode-specific color palette
+  // Mode-specific color palette using Plum #5C3F6F, Gold #F9D13C, and White Accent #FDF6EE
   const getModeTheme = () => {
     switch (mode) {
       case 'focus':
         return {
-          bar: 'bg-gradient-to-r from-blue-600 to-indigo-600',
-          btn: 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-blue-500/25',
-          border: 'border-indigo-500/30 dark:border-indigo-800/40',
-          aura: 'from-indigo-50/50 via-blue-50/20 to-white dark:from-indigo-950/30 dark:via-blue-950/10 dark:to-zinc-900',
-          dot: 'bg-indigo-500',
-          tag: 'bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border-indigo-200/50',
+          bar: 'bg-gradient-to-r from-plum-600 via-plum-500 to-gold-400',
+          btn: 'bg-gradient-to-r from-plum-600 to-plum-800 hover:from-plum-700 hover:to-plum-900 text-accent-100 shadow-plum-600/30 border border-gold-400/40',
+          border: 'border-plum-500/30 dark:border-plum-700/50',
+          aura: 'from-plum-50/70 via-accent-100/40 to-white dark:from-plum-950/70 dark:via-plum-900/40 dark:to-zinc-900',
+          dot: 'bg-gold-500',
+          tag: 'bg-accent-100 text-plum-900 dark:bg-plum-900/70 dark:text-gold-300 border-plum-200 dark:border-plum-700',
         };
       case 'shortBreak':
         return {
-          bar: 'bg-gradient-to-r from-emerald-500 to-teal-500',
-          btn: 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 shadow-emerald-500/25',
-          border: 'border-emerald-500/30 dark:border-emerald-800/40',
-          aura: 'from-emerald-50/50 via-teal-50/20 to-white dark:from-emerald-950/30 dark:via-teal-950/10 dark:to-zinc-900',
-          dot: 'bg-emerald-500',
-          tag: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border-emerald-200/50',
+          bar: 'bg-gradient-to-r from-gold-400 to-gold-500',
+          btn: 'bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-plum-950 shadow-gold-500/25 border border-gold-300',
+          border: 'border-gold-400/40 dark:border-gold-700/40',
+          aura: 'from-gold-50/60 via-accent-100/30 to-white dark:from-gold-950/40 dark:via-gold-900/20 dark:to-zinc-900',
+          dot: 'bg-gold-500',
+          tag: 'bg-gold-100 text-gold-900 dark:bg-gold-950/60 dark:text-gold-300 border-gold-200',
         };
       case 'longBreak':
         return {
-          bar: 'bg-gradient-to-r from-purple-500 to-indigo-500',
-          btn: 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 shadow-purple-500/25',
-          border: 'border-purple-500/30 dark:border-purple-800/40',
-          aura: 'from-purple-50/50 via-indigo-50/20 to-white dark:from-purple-950/30 dark:via-indigo-950/10 dark:to-zinc-900',
-          dot: 'bg-purple-500',
-          tag: 'bg-purple-50 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300 border-purple-200/50',
+          bar: 'bg-gradient-to-r from-plum-700 via-plum-600 to-accent-300',
+          btn: 'bg-gradient-to-r from-plum-700 to-plum-900 hover:from-plum-800 hover:to-black text-accent-100 shadow-plum-800/25 border border-plum-600',
+          border: 'border-plum-700/30 dark:border-plum-800/40',
+          aura: 'from-plum-100/60 via-accent-100/30 to-white dark:from-plum-950/80 dark:via-plum-900/30 dark:to-zinc-900',
+          dot: 'bg-plum-400',
+          tag: 'bg-plum-100 text-plum-900 dark:bg-plum-900/60 dark:text-accent-100 border-plum-300',
         };
     }
   };
@@ -193,13 +193,13 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       {/* Mode Switcher */}
-      <div className="flex items-center justify-center gap-2 p-1.5 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800/80 shadow-soft max-w-md mx-auto">
+      <div className="flex items-center justify-center gap-2 p-1.5 rounded-2xl bg-white dark:bg-plum-950/70 border border-slate-200/80 dark:border-plum-900/80 shadow-soft max-w-md mx-auto">
         <button
           onClick={() => switchMode('focus')}
           className={`flex-1 py-2 text-xs font-bold rounded-xl transition ${
             mode === 'focus'
-              ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/20'
-              : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900'
+              ? 'bg-plum-600 text-accent-100 shadow-sm border border-gold-400/40'
+              : 'text-slate-600 dark:text-zinc-400 hover:text-plum-900 dark:hover:text-accent-100'
           }`}
         >
           Fokus Nugas (25m)
@@ -208,8 +208,8 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
           onClick={() => switchMode('shortBreak')}
           className={`flex-1 py-2 text-xs font-bold rounded-xl transition ${
             mode === 'shortBreak'
-              ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-500/20'
-              : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900'
+              ? 'bg-gold-500 text-plum-950 shadow-sm font-black'
+              : 'text-slate-600 dark:text-zinc-400 hover:text-plum-900 dark:hover:text-accent-100'
           }`}
         >
           Istirahat (5m)
@@ -218,8 +218,8 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
           onClick={() => switchMode('longBreak')}
           className={`flex-1 py-2 text-xs font-bold rounded-xl transition ${
             mode === 'longBreak'
-              ? 'bg-purple-600 text-white shadow-sm shadow-purple-500/20'
-              : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900'
+              ? 'bg-plum-800 text-accent-100 shadow-sm'
+              : 'text-slate-600 dark:text-zinc-400 hover:text-plum-900 dark:hover:text-accent-100'
           }`}
         >
           Istirahat Panjang (15m)
@@ -281,9 +281,9 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         <div className="flex items-center justify-center gap-4">
           <button
             onClick={toggleTimer}
-            className={`px-8 py-3.5 rounded-2xl font-bold text-sm text-white shadow-md active:scale-95 transition flex items-center gap-2 ${
+            className={`px-8 py-3.5 rounded-2xl font-bold text-sm shadow-md active:scale-95 transition flex items-center gap-2 ${
               isRunning
-                ? 'bg-amber-600 hover:bg-amber-700 shadow-amber-500/25'
+                ? 'bg-gold-500 hover:bg-gold-600 text-plum-950 shadow-gold-500/25 font-black'
                 : `${theme.btn}`
             }`}
           >

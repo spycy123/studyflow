@@ -31,6 +31,7 @@ export const login = (req: Request, res: Response) => {
         id: user.id,
         nim: user.nim,
         name: user.name,
+        role: user.role || 'mahasiswa',
         major: user.major,
         faculty: user.faculty,
         semester: user.semester,
@@ -45,7 +46,7 @@ export const login = (req: Request, res: Response) => {
 };
 
 export const register = (req: Request, res: Response) => {
-  const { nim, name, major, faculty, semester, university, password } = req.body;
+  const { nim, name, role, major, faculty, semester, university, password } = req.body;
 
   if (!nim || !name || !password) {
     const response: ApiResponse = {
@@ -64,10 +65,13 @@ export const register = (req: Request, res: Response) => {
     return res.status(409).json(response);
   }
 
+  const validRole = (role === 'dosen' || role === 'admin' ? role : 'mahasiswa');
+
   const newUser: User = {
     id: `user-${Date.now()}`,
     nim: nim.trim(),
     name: name.trim(),
+    role: validRole,
     major: major?.trim() || 'Teknik Informatika',
     faculty: faculty?.trim() || 'Fakultas Ilmu Komputer',
     semester: Number(semester) || 1,
@@ -86,6 +90,7 @@ export const register = (req: Request, res: Response) => {
         id: newUser.id,
         nim: newUser.nim,
         name: newUser.name,
+        role: newUser.role,
         major: newUser.major,
         faculty: newUser.faculty,
         semester: newUser.semester,

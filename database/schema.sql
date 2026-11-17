@@ -4,14 +4,15 @@
 -- Extensions
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
--- Table: users (Student Accounts)
+-- Table: users (Student, Lecturer, and Admin Accounts)
 CREATE TABLE IF NOT EXISTS users (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     nim VARCHAR(32) NOT NULL UNIQUE,
     name VARCHAR(255) NOT NULL,
+    role VARCHAR(32) NOT NULL DEFAULT 'mahasiswa' CHECK (role IN ('mahasiswa', 'dosen', 'admin')),
     major VARCHAR(255) NOT NULL,
     faculty VARCHAR(255) NOT NULL,
-    semester INT NOT NULL CHECK (semester >= 1 AND semester <= 14),
+    semester INT NOT NULL DEFAULT 1 CHECK (semester >= 0 AND semester <= 14),
     university VARCHAR(255) NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,

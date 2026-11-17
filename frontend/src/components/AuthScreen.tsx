@@ -13,12 +13,16 @@ import {
   CalendarDays,
   Award,
 } from 'lucide-react';
-import type { UserProfile } from '../types';
+import type { UserProfile, UserRole } from '../types';
 import {
   loginUser,
   registerUser,
   DEFAULT_DEMO_USER,
   DEFAULT_DEMO_PASSWORD,
+  DEFAULT_DEMO_DOSEN,
+  DEFAULT_DOSEN_PASSWORD,
+  DEFAULT_DEMO_ADMIN,
+  DEFAULT_ADMIN_PASSWORD,
 } from '../utils/storage';
 import { soundEffects } from '../utils/audio';
 
@@ -43,6 +47,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
   const [successMessage, setSuccessMessage] = useState('');
 
   // Register form state
+  const [regRole, setRegRole] = useState<UserRole>('mahasiswa');
   const [regNim, setRegNim] = useState('');
   const [regName, setRegName] = useState('');
   const [regMajor, setRegMajor] = useState('Teknik Informatika');
@@ -70,9 +75,18 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
     }
   };
 
-  const handleQuickDemoLogin = () => {
+  const handleQuickDemoRole = (role: UserRole) => {
     soundEffects.playClick();
-    const res = loginUser(DEFAULT_DEMO_USER.nim, DEFAULT_DEMO_PASSWORD);
+    let nim = DEFAULT_DEMO_USER.nim;
+    let pwd = DEFAULT_DEMO_PASSWORD;
+    if (role === 'dosen') {
+      nim = DEFAULT_DEMO_DOSEN.nim;
+      pwd = DEFAULT_DOSEN_PASSWORD;
+    } else if (role === 'admin') {
+      nim = DEFAULT_DEMO_ADMIN.nim;
+      pwd = DEFAULT_ADMIN_PASSWORD;
+    }
+    const res = loginUser(nim, pwd);
     if (res.success && res.user) {
       soundEffects.playTaskComplete();
       onLoginSuccess(res.user);
@@ -101,14 +115,21 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
       return;
     }
 
+    const avatarColors: Record<UserRole, string> = {
+      mahasiswa: 'blue',
+      dosen: 'emerald',
+      admin: 'violet',
+    };
+
     const newProfile: UserProfile = {
       nim: regNim.trim(),
       name: regName.trim(),
+      role: regRole,
       major: regMajor.trim() || 'Umum',
       faculty: 'Fakultas ' + regMajor.trim(),
       semester: Number(regSemester) || 1,
       university: regUniversity.trim() || 'Perguruan Tinggi',
-      avatarColor: 'blue',
+      avatarColor: avatarColors[regRole] || 'blue',
     };
 
     const res = registerUser(newProfile, regPassword);
@@ -123,15 +144,15 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-slate-50 dark:bg-zinc-950 p-4 sm:p-6 transition-colors">
+    <div className="min-h-screen flex flex-col justify-center items-center bg-accent-100/60 dark:bg-plum-950 bg-ambient-glow p-4 sm:p-6 transition-colors">
       {/* Top Bar with Theme Toggle */}
       <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
         <button
           onClick={toggleDarkMode}
-          className="p-2.5 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-slate-600 dark:text-zinc-300 hover:border-slate-300 shadow-soft transition"
+          className="p-2.5 rounded-2xl bg-white dark:bg-plum-900 border border-slate-200 dark:border-plum-800 text-slate-600 dark:text-accent-100 hover:border-gold-400 shadow-soft transition"
           aria-label="Toggle theme"
         >
-          {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
+          {isDark ? <Sun className="w-4 h-4 text-gold-400" /> : <Moon className="w-4 h-4 text-plum-600" />}
         </button>
       </div>
 
@@ -139,56 +160,56 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
         {/* Left Side: Brand Illustration & Features (Desktop) */}
         <div className="lg:col-span-5 space-y-6 hidden lg:block pr-4">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-soft-lg">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-plum-600 to-plum-800 border border-gold-400/40 flex items-center justify-center text-gold-400 shadow-soft-lg shadow-plum-600/30">
               <GraduationCap className="w-6 h-6" />
             </div>
             <div>
-              <span className="text-xl font-black text-slate-900 dark:text-white tracking-tight">
+              <span className="text-xl font-black text-slate-900 dark:text-accent-100 tracking-tight">
                 StudyFlow
               </span>
-              <p className="text-xs text-blue-600 dark:text-blue-400 font-semibold">
+              <p className="text-xs text-plum-600 dark:text-gold-400 font-bold">
                 Portal Akademik & Produktivitas
               </p>
             </div>
           </div>
 
           <div className="space-y-3">
-            <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-snug">
+            <h1 className="text-2xl font-black text-slate-900 dark:text-accent-100 tracking-tight leading-snug">
               Atur Kuliah, Jadwal Kelas, & Target IPK Tanpa Beban.
             </h1>
-            <p className="text-xs text-slate-600 dark:text-zinc-400 leading-relaxed">
+            <p className="text-xs text-slate-600 dark:text-zinc-300 leading-relaxed">
               Platform modern khusus mahasiswa Indonesia untuk mencatat deadline tugas, memantau ruangan kuliah, menghitung prediksi IPS, dan belajar fokus bebas distraksi.
             </p>
           </div>
 
           {/* Feature Highlights */}
           <div className="space-y-3 pt-2">
-            <div className="flex items-center gap-3 p-3 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800/80 shadow-soft">
-              <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-400 flex items-center justify-center flex-shrink-0">
+            <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/90 dark:bg-plum-900/40 border border-slate-200/80 dark:border-plum-800/80 shadow-soft">
+              <div className="w-8 h-8 rounded-xl bg-plum-100 text-plum-700 dark:bg-plum-900 dark:text-accent-100 flex items-center justify-center flex-shrink-0">
                 <CheckCircle2 className="w-4 h-4" />
               </div>
               <div className="text-xs">
-                <div className="font-bold text-slate-900 dark:text-white">To-Do & Deadline Pintar</div>
+                <div className="font-bold text-slate-900 dark:text-accent-100">To-Do & Deadline Pintar</div>
                 <div className="text-slate-500 dark:text-zinc-400 text-[11px]">Penanda H-1, Hari Ini, dan Terlewat</div>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-3 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800/80 shadow-soft">
-              <div className="w-8 h-8 rounded-xl bg-purple-50 text-purple-600 dark:bg-purple-950/50 dark:text-purple-400 flex items-center justify-center flex-shrink-0">
+            <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/90 dark:bg-plum-900/40 border border-slate-200/80 dark:border-plum-800/80 shadow-soft">
+              <div className="w-8 h-8 rounded-xl bg-gold-100 text-gold-800 dark:bg-gold-950/60 dark:text-gold-300 flex items-center justify-center flex-shrink-0">
                 <CalendarDays className="w-4 h-4" />
               </div>
               <div className="text-xs">
-                <div className="font-bold text-slate-900 dark:text-white">Jadwal Kuliah & Ruang Kelas</div>
+                <div className="font-bold text-slate-900 dark:text-accent-100">Jadwal Kuliah & Ruang Kelas</div>
                 <div className="text-slate-500 dark:text-zinc-400 text-[11px]">Timetable mingguan terintegrasi dosen</div>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-3 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800/80 shadow-soft">
-              <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
+            <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/90 dark:bg-plum-900/40 border border-slate-200/80 dark:border-plum-800/80 shadow-soft">
+              <div className="w-8 h-8 rounded-xl bg-accent-200 text-plum-900 dark:bg-plum-800 dark:text-accent-100 flex items-center justify-center flex-shrink-0">
                 <Award className="w-4 h-4" />
               </div>
               <div className="text-xs">
-                <div className="font-bold text-slate-900 dark:text-white">Simulasi Target IPK / IPS</div>
+                <div className="font-bold text-slate-900 dark:text-accent-100">Simulasi Target IPK / IPS</div>
                 <div className="text-slate-500 dark:text-zinc-400 text-[11px]">Kalkulasi otomatis mutu SKS semester</div>
               </div>
             </div>
@@ -197,24 +218,24 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
 
         {/* Right Side: Auth Card */}
         <div className="lg:col-span-7 w-full max-w-md mx-auto">
-          <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800/80 shadow-soft-lg">
+          <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-plum-900/50 border border-slate-200/80 dark:border-plum-800/80 shadow-soft-lg">
             {/* Mobile Logo */}
             <div className="flex items-center gap-2.5 mb-6 lg:hidden">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-soft">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-plum-600 to-plum-800 border border-gold-400/40 flex items-center justify-center text-gold-400 shadow-soft">
                 <GraduationCap className="w-5 h-5" />
               </div>
               <div>
-                <span className="font-bold text-base text-slate-900 dark:text-white">
+                <span className="font-bold text-base text-slate-900 dark:text-accent-100">
                   StudyFlow
                 </span>
-                <span className="text-[10px] block text-blue-600 dark:text-blue-400 font-medium">
+                <span className="text-[10px] block text-plum-600 dark:text-gold-400 font-bold">
                   Portal Mahasiswa
                 </span>
               </div>
             </div>
 
             {/* Tab Navigation */}
-            <div className="flex p-1 rounded-2xl bg-slate-100 dark:bg-zinc-800/80 border border-slate-200/60 dark:border-zinc-700/60 mb-6">
+            <div className="flex p-1 rounded-2xl bg-accent-100/90 dark:bg-plum-950/80 border border-slate-200/60 dark:border-plum-800/70 mb-6">
               <button
                 type="button"
                 onClick={() => {
@@ -223,8 +244,8 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                 }}
                 className={`flex-1 py-2 text-xs font-bold rounded-xl transition ${
                   activeTab === 'login'
-                    ? 'bg-white dark:bg-zinc-900 text-slate-900 dark:text-white shadow-xs'
-                    : 'text-slate-500 dark:text-zinc-400 hover:text-slate-800'
+                    ? 'bg-plum-600 text-accent-100 shadow-sm border border-gold-400/30'
+                    : 'text-slate-500 dark:text-zinc-400 hover:text-plum-900 dark:hover:text-accent-100'
                 }`}
               >
                 Masuk (NIM)
@@ -237,8 +258,8 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                 }}
                 className={`flex-1 py-2 text-xs font-bold rounded-xl transition ${
                   activeTab === 'register'
-                    ? 'bg-white dark:bg-zinc-900 text-slate-900 dark:text-white shadow-xs'
-                    : 'text-slate-500 dark:text-zinc-400 hover:text-slate-800'
+                    ? 'bg-plum-600 text-accent-100 shadow-sm border border-gold-400/30'
+                    : 'text-slate-500 dark:text-zinc-400 hover:text-plum-900 dark:hover:text-accent-100'
                 }`}
               >
                 Daftar Mahasiswa Baru
@@ -305,24 +326,46 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
 
                 <button
                   type="submit"
-                  className="w-full py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 active:scale-[0.99] transition shadow-md shadow-blue-500/20 flex items-center justify-center gap-2"
+                  className="w-full py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-accent-100 bg-plum-600 hover:bg-plum-700 active:scale-[0.99] transition shadow-md shadow-plum-600/25 border border-gold-400/40 hover:border-gold-400 flex items-center justify-center gap-2"
                 >
                   <span>Masuk ke Portal Kuliah</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 text-gold-300" />
                 </button>
 
-                {/* Quick 1-Click Demo Login */}
-                <div className="pt-3 border-t border-slate-100 dark:border-zinc-800">
-                  <button
-                    type="button"
-                    onClick={handleQuickDemoLogin}
-                    className="w-full py-2 px-3 rounded-xl border border-blue-200 dark:border-blue-900/60 bg-blue-50/60 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 text-xs font-semibold hover:bg-blue-100/70 transition flex items-center justify-center gap-2"
-                  >
-                    <Sparkles className="w-3.5 h-3.5 text-blue-500" />
-                    <span>Masuk Akun Demo (1-Klik)</span>
-                  </button>
-                  <p className="text-[11px] text-slate-400 dark:text-zinc-500 text-center mt-2">
-                    Akun demo pre-loaded jadwal semester & 8 tugas perkuliahan.
+                {/* Quick 1-Click Demo Login by Role */}
+                <div className="pt-3 border-t border-slate-100 dark:border-plum-800/80">
+                  <div className="text-[11px] font-semibold text-slate-500 dark:text-zinc-400 mb-2 flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-gold-500" />
+                    <span>Akses Cepat Mode Demo (Pilih Role):</span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => handleQuickDemoRole('mahasiswa')}
+                      className="py-2 px-2 rounded-xl border border-plum-300 dark:border-plum-700/80 bg-plum-50/80 dark:bg-plum-950/70 text-plum-800 dark:text-accent-100 text-xs font-semibold hover:bg-plum-100 transition flex flex-col items-center gap-0.5"
+                    >
+                      <span className="font-bold">Mahasiswa</span>
+                      <span className="text-[9px] text-plum-600 dark:text-gold-400 font-mono">Fajar P.</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleQuickDemoRole('dosen')}
+                      className="py-2 px-2 rounded-xl border border-gold-300 dark:border-gold-700/80 bg-gold-50/80 dark:bg-gold-950/50 text-gold-900 dark:text-gold-300 text-xs font-semibold hover:bg-gold-100 transition flex flex-col items-center gap-0.5"
+                    >
+                      <span className="font-bold">Dosen</span>
+                      <span className="text-[9px] text-gold-700 dark:text-gold-400 font-mono">Dr. Aris</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleQuickDemoRole('admin')}
+                      className="py-2 px-2 rounded-xl border border-accent-300 dark:border-plum-600 bg-accent-100 dark:bg-plum-900/80 text-plum-950 dark:text-accent-100 text-xs font-semibold hover:bg-accent-200 transition flex flex-col items-center gap-0.5"
+                    >
+                      <span className="font-bold">Admin</span>
+                      <span className="text-[9px] text-plum-600 dark:text-accent-300 font-mono">Akademik</span>
+                    </button>
+                  </div>
+                  <p className="text-[10px] text-slate-400 dark:text-zinc-500 text-center mt-2">
+                    Setiap role memiliki hak akses, profil, dan tampilan tersendiri.
                   </p>
                 </div>
               </form>
@@ -331,12 +374,34 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
               <form onSubmit={handleRegister} className="space-y-3.5 text-xs">
                 <div>
                   <label className="block font-medium text-slate-700 dark:text-zinc-300 mb-1">
-                    NIM (Nomor Induk Mahasiswa) <span className="text-rose-500">*</span>
+                    Daftar Sebagai (Pilihan Role) <span className="text-rose-500">*</span>
+                  </label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {(['mahasiswa', 'dosen', 'admin'] as const).map((r) => (
+                      <button
+                        key={r}
+                        type="button"
+                        onClick={() => setRegRole(r)}
+                        className={`py-1.5 px-2 rounded-xl border text-xs font-semibold capitalize transition ${
+                          regRole === r
+                            ? 'bg-plum-600 text-accent-100 border-gold-400 shadow-xs'
+                            : 'bg-white dark:bg-plum-950 text-slate-700 dark:text-zinc-300 border-slate-200 dark:border-plum-800'
+                        }`}
+                      >
+                        {r}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block font-medium text-slate-700 dark:text-zinc-300 mb-1">
+                    {regRole === 'mahasiswa' ? 'NIM (Nomor Induk Mahasiswa)' : regRole === 'dosen' ? 'NIP / NIDN (Dosen)' : 'ID Administrator'} <span className="text-rose-500">*</span>
                   </label>
                   <input
                     type="text"
                     required
-                    placeholder="Contoh: 230102045"
+                    placeholder={regRole === 'mahasiswa' ? 'Contoh: 230102045' : regRole === 'dosen' ? 'Contoh: 19880101...' : 'Contoh: ADMIN002'}
                     value={regNim}
                     onChange={(e) => setRegNim(e.target.value)}
                     className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-zinc-700 bg-slate-50/50 dark:bg-zinc-800/60 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
@@ -345,7 +410,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
 
                 <div>
                   <label className="block font-medium text-slate-700 dark:text-zinc-300 mb-1">
-                    Nama Lengkap Mahasiswa <span className="text-rose-500">*</span>
+                    Nama Lengkap <span className="text-rose-500">*</span>
                   </label>
                   <input
                     type="text"

@@ -90,21 +90,41 @@ export const Navbar: React.FC<NavbarProps> = ({
     return name.slice(0, 2).toUpperCase();
   };
 
+  const roleConfig = {
+    mahasiswa: {
+      label: 'Mahasiswa',
+      badgeClass: 'bg-plum-100 text-plum-800 dark:bg-plum-900/80 dark:text-accent-100 border-plum-300/80 dark:border-plum-700',
+      avatarBg: 'bg-plum-600',
+    },
+    dosen: {
+      label: 'Dosen',
+      badgeClass: 'bg-gold-100 text-gold-900 dark:bg-gold-950/70 dark:text-gold-300 border-gold-300 dark:border-gold-700',
+      avatarBg: 'bg-gold-600',
+    },
+    admin: {
+      label: 'Admin',
+      badgeClass: 'bg-accent-200 text-plum-950 dark:bg-plum-800 dark:text-accent-100 border-accent-300 dark:border-plum-600',
+      avatarBg: 'bg-plum-800',
+    },
+  };
+  const currentRole = currentUser.role || 'mahasiswa';
+  const roleInfo = roleConfig[currentRole] || roleConfig.mahasiswa;
+
   return (
-    <header className="sticky top-0 z-30 w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-900/80 transition-colors">
+    <header className="sticky top-0 z-30 w-full border-b border-slate-200/80 bg-white/85 backdrop-blur-md dark:border-plum-900/80 dark:bg-plum-950/85 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo & Brand */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-sm shadow-blue-500/20">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-plum-600 to-plum-800 border border-gold-400/40 flex items-center justify-center text-gold-400 shadow-sm shadow-plum-600/30">
               <GraduationCap className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-bold text-lg tracking-tight text-slate-900 dark:text-white">
+                <span className="font-bold text-lg tracking-tight text-slate-900 dark:text-accent-100">
                   StudyFlow
                 </span>
-                <span className="text-[10px] font-medium tracking-wide uppercase px-1.5 py-0.5 rounded-full bg-blue-100/70 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300">
+                <span className="text-[10px] font-bold tracking-wide uppercase px-2 py-0.5 rounded-full bg-accent-100 text-plum-800 dark:bg-plum-900/80 dark:text-gold-400 border border-plum-200/70 dark:border-plum-700/60 shadow-xs">
                   Kampus
                 </span>
               </div>
@@ -115,7 +135,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Center Navigation Tabs */}
-          <nav className="hidden md:flex items-center p-1 rounded-xl bg-slate-100/80 dark:bg-zinc-800/70 border border-slate-200/60 dark:border-zinc-700/60">
+          <nav className="hidden md:flex items-center p-1 rounded-xl bg-accent-100/80 dark:bg-plum-900/40 border border-slate-200/70 dark:border-plum-800/60">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = currentTab === tab.id;
@@ -123,20 +143,20 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <button
                   key={tab.id}
                   onClick={() => setCurrentTab(tab.id)}
-                  className={`flex items-center gap-2 px-3.5 py-1.5 text-xs font-medium rounded-lg transition-all duration-150 relative ${
+                  className={`flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all duration-150 relative ${
                     isActive
-                      ? 'bg-white text-slate-900 shadow-sm dark:bg-zinc-900 dark:text-white'
-                      : 'text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-zinc-200'
+                      ? 'bg-white text-plum-900 shadow-sm border border-plum-100/80 dark:bg-plum-800 dark:text-accent-100 dark:border-plum-700/60'
+                      : 'text-slate-600 hover:text-plum-800 dark:text-zinc-400 dark:hover:text-accent-100'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
                   <span>{tab.label}</span>
                   {tab.badge !== undefined && (
                     <span
-                      className={`px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
+                      className={`px-1.5 py-0.2 rounded-full text-[10px] font-black ${
                         isActive
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-slate-200 text-slate-700 dark:bg-zinc-700 dark:text-zinc-300'
+                          ? 'bg-gold text-plum-950 shadow-xs'
+                          : 'bg-slate-200 text-slate-700 dark:bg-plum-950 dark:text-zinc-300'
                       }`}
                     >
                       {tab.badge}
@@ -149,12 +169,12 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Right Action Buttons */}
           <div className="flex items-center gap-2 sm:gap-2.5">
-            {/* New Task Button */}
+            {/* New Task Button with Plum + Gold border + White Accent text */}
             <button
               onClick={onOpenTaskModal}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 active:scale-95 rounded-xl shadow-sm transition-all duration-150"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-accent-100 bg-plum-600 hover:bg-plum-700 active:scale-95 rounded-xl shadow-sm shadow-plum-600/25 border border-gold-400/40 hover:border-gold-400 transition-all duration-150"
             >
-              <Plus className="w-4 h-4 stroke-[2.5]" />
+              <Plus className="w-4 h-4 stroke-[2.5] text-gold-300" />
               <span className="hidden sm:inline">Tambah Tugas</span>
               <span className="sm:hidden">Tugas</span>
             </button>
@@ -234,14 +254,19 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="relative">
               <button
                 onClick={() => setShowProfileDropdown(!showProfileDropdown)}
-                className="flex items-center gap-2 p-1 sm:pl-2 sm:pr-2.5 rounded-xl border border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-800/80 transition"
+                className="flex items-center gap-2 p-1 sm:pl-2 sm:pr-2.5 rounded-xl border border-slate-200 dark:border-plum-900 hover:bg-accent-100/60 dark:hover:bg-plum-900/60 transition"
               >
-                <div className="w-7 h-7 rounded-lg bg-blue-600 text-white font-bold text-xs flex items-center justify-center shadow-xs">
+                <div className={`w-7 h-7 rounded-lg ${roleInfo.avatarBg} text-accent-100 font-bold text-xs flex items-center justify-center shadow-xs border border-gold-400/40`}>
                   {getInitials(currentUser.name)}
                 </div>
                 <div className="text-left hidden sm:block">
-                  <div className="text-xs font-semibold text-slate-900 dark:text-white leading-tight truncate max-w-[100px]">
-                    {currentUser.name}
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-xs font-semibold text-slate-900 dark:text-accent-100 leading-tight truncate max-w-[90px]">
+                      {currentUser.name}
+                    </span>
+                    <span className={`text-[9px] font-bold uppercase px-1.5 py-0.2 rounded border ${roleInfo.badgeClass}`}>
+                      {roleInfo.label}
+                    </span>
                   </div>
                   <div className="text-[10px] text-slate-400 dark:text-zinc-400 font-mono leading-none">
                     {currentUser.nim}
@@ -256,18 +281,23 @@ export const Navbar: React.FC<NavbarProps> = ({
                     className="fixed inset-0 z-40"
                     onClick={() => setShowProfileDropdown(false)}
                   />
-                  <div className="absolute right-0 mt-2 w-64 p-3 bg-white dark:bg-zinc-900 rounded-2xl shadow-xl border border-slate-200 dark:border-zinc-800 z-50 text-xs animate-in fade-in zoom-in-95 duration-100">
+                  <div className="absolute right-0 mt-2 w-64 p-3 bg-white dark:bg-plum-950 rounded-2xl shadow-xl border border-slate-200 dark:border-plum-800 z-50 text-xs animate-in fade-in zoom-in-95 duration-100">
                     {/* User Profile Card Header */}
-                    <div className="flex items-center gap-3 pb-3 border-b border-slate-100 dark:border-zinc-800">
-                      <div className="w-10 h-10 rounded-xl bg-blue-600 text-white font-bold text-sm flex items-center justify-center shadow-xs">
+                    <div className="flex items-center gap-3 pb-3 border-b border-slate-100 dark:border-plum-900">
+                      <div className={`w-10 h-10 rounded-xl ${roleInfo.avatarBg} text-accent-100 font-bold text-sm flex items-center justify-center shadow-xs border border-gold-400/40`}>
                         {getInitials(currentUser.name)}
                       </div>
                       <div className="min-w-0 flex-1">
-                        <div className="font-bold text-slate-900 dark:text-white truncate">
-                          {currentUser.name}
+                        <div className="flex items-center gap-1.5">
+                          <span className="font-bold text-slate-900 dark:text-accent-100 truncate">
+                            {currentUser.name}
+                          </span>
+                          <span className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded border ${roleInfo.badgeClass}`}>
+                            {roleInfo.label}
+                          </span>
                         </div>
-                        <div className="text-[11px] text-blue-600 dark:text-blue-400 font-mono font-medium">
-                          NIM: {currentUser.nim}
+                        <div className="text-[11px] text-plum-600 dark:text-gold-400 font-mono font-medium">
+                          ID/NIM: {currentUser.nim}
                         </div>
                       </div>
                     </div>

@@ -44,18 +44,18 @@ export const GradeCalculator: React.FC<GradeCalculatorProps> = ({
     <div className="space-y-6">
       {/* 3 Metric Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {/* GPA Projection Card */}
-        <div className="p-6 rounded-3xl bg-gradient-to-br from-indigo-700 via-blue-800 to-indigo-900 text-white shadow-soft-lg flex flex-col justify-between relative overflow-hidden border border-indigo-400/20">
-          <div className="absolute -top-12 -right-12 w-36 h-36 rounded-full bg-white/10 blur-xl pointer-events-none" />
+        {/* GPA Projection Card with Plum, Gold, and Accent White */}
+        <div className="p-6 rounded-3xl bg-gradient-to-br from-plum-700 via-plum-800 to-plum-950 text-accent-100 shadow-soft-lg flex flex-col justify-between relative overflow-hidden border border-gold-400/30">
+          <div className="absolute -top-12 -right-12 w-36 h-36 rounded-full bg-gold-400/10 blur-xl pointer-events-none" />
           <div className="relative z-10">
-            <div className="flex items-center justify-between text-indigo-200 text-xs font-bold uppercase tracking-wider">
+            <div className="flex items-center justify-between text-gold-300 text-xs font-bold uppercase tracking-wider">
               <span>Proyeksi IPS Semester</span>
-              <Award className="w-5 h-5 text-amber-300" />
+              <Award className="w-5 h-5 text-gold-400" />
             </div>
-            <div className="text-4xl sm:text-5xl font-black mt-3 font-mono tracking-tight text-white">
+            <div className="text-4xl sm:text-5xl font-black mt-3 font-mono tracking-tight text-accent-100">
               {projectedIps}
             </div>
-            <p className="text-xs text-indigo-100 mt-2 leading-relaxed">
+            <p className="text-xs text-accent-200 mt-2 leading-relaxed">
               {ipsNumber >= 3.8
                 ? 'Predikat Dengan Pujian (Cum Laude / Dean\'s List).'
                 : ipsNumber >= 3.5
@@ -66,8 +66,8 @@ export const GradeCalculator: React.FC<GradeCalculatorProps> = ({
             </p>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-indigo-500/30 text-xs text-indigo-200 relative z-10 font-medium">
-            Total Beban: <span className="font-bold text-white">{totalSks} SKS</span>
+          <div className="mt-4 pt-3 border-t border-plum-600/50 text-xs text-accent-200 relative z-10 font-medium">
+            Total Beban: <span className="font-bold text-gold-300">{totalSks} SKS</span>
           </div>
         </div>
 

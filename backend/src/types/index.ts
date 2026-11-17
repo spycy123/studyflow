@@ -58,10 +58,13 @@ export interface Course {
   targetGrade?: 'A' | 'AB' | 'B' | 'BC' | 'C' | 'D' | 'E';
 }
 
+export type UserRole = 'mahasiswa' | 'dosen' | 'admin';
+
 export interface User {
   id: string;
   nim: string;
   name: string;
+  role: UserRole;
   major: string;
   faculty: string;
   semester: number;

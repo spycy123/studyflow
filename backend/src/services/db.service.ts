@@ -14,6 +14,7 @@ class InMemoryDatabase {
       id: 'user-1',
       nim: '220101034',
       name: 'Fajar Pratama',
+      role: 'mahasiswa',
       major: 'Teknik Informatika',
       faculty: 'Fakultas Ilmu Komputer',
       semester: 5,
@@ -22,6 +23,34 @@ class InMemoryDatabase {
       createdAt: new Date().toISOString(),
     };
     this.users.set(demoUser.id, demoUser);
+
+    const demoLecturer: User = {
+      id: 'user-lecturer-1',
+      nim: '198504122010121001',
+      name: 'Dr. Aris Subagyo, M.Kom',
+      role: 'dosen',
+      major: 'Teknik Informatika',
+      faculty: 'Fakultas Ilmu Komputer',
+      semester: 0,
+      university: 'Universitas Indonesia',
+      passwordHash: 'dosen123',
+      createdAt: new Date().toISOString(),
+    };
+    this.users.set(demoLecturer.id, demoLecturer);
+
+    const demoAdmin: User = {
+      id: 'user-admin-1',
+      nim: 'ADMIN001',
+      name: 'Administrator Akademik',
+      role: 'admin',
+      major: 'Direktorat Akademik & SI',
+      faculty: 'Biro Administrasi Akademik',
+      semester: 0,
+      university: 'Universitas Indonesia',
+      passwordHash: 'admin123',
+      createdAt: new Date().toISOString(),
+    };
+    this.users.set(demoAdmin.id, demoAdmin);
 
     const defaultCourses: Course[] = [
       {

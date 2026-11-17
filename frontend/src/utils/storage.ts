@@ -238,6 +238,7 @@ export const INITIAL_TASKS: Task[] = [
 export const DEFAULT_DEMO_USER: UserProfile = {
   nim: '220101034',
   name: 'Fajar Pratama',
+  role: 'mahasiswa',
   major: 'Teknik Informatika',
   faculty: 'Fakultas Ilmu Komputer',
   semester: 5,
@@ -246,6 +247,30 @@ export const DEFAULT_DEMO_USER: UserProfile = {
 };
 
 export const DEFAULT_DEMO_PASSWORD = 'mahasiswa123';
+
+export const DEFAULT_DEMO_DOSEN: UserProfile = {
+  nim: '198504122010121001',
+  name: 'Dr. Aris Subagyo, M.Kom',
+  role: 'dosen',
+  major: 'Teknik Informatika',
+  faculty: 'Fakultas Ilmu Komputer',
+  semester: 0,
+  university: 'Universitas Indonesia',
+  avatarColor: 'emerald',
+};
+export const DEFAULT_DOSEN_PASSWORD = 'dosen123';
+
+export const DEFAULT_DEMO_ADMIN: UserProfile = {
+  nim: 'ADMIN001',
+  name: 'Administrator Akademik',
+  role: 'admin',
+  major: 'Direktorat Akademik & SI',
+  faculty: 'Biro Administrasi Akademik',
+  semester: 0,
+  university: 'Universitas Indonesia',
+  avatarColor: 'violet',
+};
+export const DEFAULT_ADMIN_PASSWORD = 'admin123';
 
 // User Database Helpers
 export const getUsersDB = (): Record<string, { profile: UserProfile; passwordHash: string }> => {
@@ -257,16 +282,50 @@ export const getUsersDB = (): Record<string, { profile: UserProfile; passwordHas
           profile: DEFAULT_DEMO_USER,
           passwordHash: DEFAULT_DEMO_PASSWORD,
         },
+        [DEFAULT_DEMO_DOSEN.nim]: {
+          profile: DEFAULT_DEMO_DOSEN,
+          passwordHash: DEFAULT_DOSEN_PASSWORD,
+        },
+        [DEFAULT_DEMO_ADMIN.nim]: {
+          profile: DEFAULT_DEMO_ADMIN,
+          passwordHash: DEFAULT_ADMIN_PASSWORD,
+        },
       };
       localStorage.setItem(STORAGE_KEY_USERS_DB, JSON.stringify(initialDB));
       return initialDB;
     }
-    return JSON.parse(raw);
+    const parsed = JSON.parse(raw);
+    // Ensure all demo users exist
+    let updated = false;
+    if (!parsed[DEFAULT_DEMO_USER.nim]) {
+      parsed[DEFAULT_DEMO_USER.nim] = { profile: DEFAULT_DEMO_USER, passwordHash: DEFAULT_DEMO_PASSWORD };
+      updated = true;
+    }
+    if (!parsed[DEFAULT_DEMO_DOSEN.nim]) {
+      parsed[DEFAULT_DEMO_DOSEN.nim] = { profile: DEFAULT_DEMO_DOSEN, passwordHash: DEFAULT_DOSEN_PASSWORD };
+      updated = true;
+    }
+    if (!parsed[DEFAULT_DEMO_ADMIN.nim]) {
+      parsed[DEFAULT_DEMO_ADMIN.nim] = { profile: DEFAULT_DEMO_ADMIN, passwordHash: DEFAULT_ADMIN_PASSWORD };
+      updated = true;
+    }
+    if (updated) {
+      localStorage.setItem(STORAGE_KEY_USERS_DB, JSON.stringify(parsed));
+    }
+    return parsed;
   } catch {
     return {
       [DEFAULT_DEMO_USER.nim]: {
         profile: DEFAULT_DEMO_USER,
         passwordHash: DEFAULT_DEMO_PASSWORD,
+      },
+      [DEFAULT_DEMO_DOSEN.nim]: {
+        profile: DEFAULT_DEMO_DOSEN,
+        passwordHash: DEFAULT_DOSEN_PASSWORD,
+      },
+      [DEFAULT_DEMO_ADMIN.nim]: {
+        profile: DEFAULT_DEMO_ADMIN,
+        passwordHash: DEFAULT_ADMIN_PASSWORD,
       },
     };
   }
@@ -290,6 +349,7 @@ export const registerUser = (
     db[cleanNim] = {
       profile: {
         ...profile,
+        role: profile.role || 'mahasiswa',
         nim: cleanNim,
       },
       passwordHash: password,

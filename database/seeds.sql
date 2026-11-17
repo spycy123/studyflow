@@ -1,17 +1,46 @@
 -- StudyFlow Initial Seed Data
 
--- Demo Student
-INSERT INTO users (id, nim, name, major, faculty, semester, university, password_hash)
+-- 1. Demo Student (Mahasiswa)
+INSERT INTO users (id, nim, name, role, major, faculty, semester, university, password_hash)
 VALUES (
     'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
     '220101034',
     'Fajar Pratama',
+    'mahasiswa',
     'Teknik Informatika',
     'Fakultas Ilmu Komputer',
     5,
     'Universitas Indonesia',
     'mahasiswa123'
-) ON CONFLICT (nim) DO NOTHING;
+) ON CONFLICT (nim) DO UPDATE SET role = 'mahasiswa';
+
+-- 2. Demo Lecturer (Dosen)
+INSERT INTO users (id, nim, name, role, major, faculty, semester, university, password_hash)
+VALUES (
+    'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380b22',
+    '198504122010121001',
+    'Dr. Aris Subagyo, M.Kom',
+    'dosen',
+    'Teknik Informatika',
+    'Fakultas Ilmu Komputer',
+    0,
+    'Universitas Indonesia',
+    'dosen123'
+) ON CONFLICT (nim) DO UPDATE SET role = 'dosen';
+
+-- 3. Demo Admin (Administrator Sistem & Akademik)
+INSERT INTO users (id, nim, name, role, major, faculty, semester, university, password_hash)
+VALUES (
+    'c0eebc99-9c0b-4ef8-bb6d-6bb9bd380c33',
+    'ADMIN001',
+    'Administrator Akademik',
+    'admin',
+    'Direktorat Akademik & SI',
+    'Biro Administrasi Akademik',
+    0,
+    'Universitas Indonesia',
+    'admin123'
+) ON CONFLICT (nim) DO UPDATE SET role = 'admin';
 
 -- Courses
 INSERT INTO courses (id, user_id, code, name, lecturer, sks, day, start_time, end_time, room, color, target_grade)
@@ -28,4 +57,3 @@ VALUES
     ('t001bc99-9c0b-4ef8-bb6d-6bb9bd380101', 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11', 'c002bc99-9c0b-4ef8-bb6d-6bb9bd380002', 'Laporan Praktikum Query Optimization', 'Bandingkan waktu eksekusi query dengan dan tanpa index pada dataset 100.000 row.', 'laporan', 'urgent', 'in_progress', CURRENT_DATE + INTERVAL '1 day', '23:59'),
     ('t002bc99-9c0b-4ef8-bb6d-6bb9bd380102', 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11', 'c001bc99-9c0b-4ef8-bb6d-6bb9bd380001', 'Proyek Akhir Web: Implementasi Autentikasi', 'Implementasi arsitektur REST API dan integrasi token JWT.', 'proyek', 'high', 'todo', CURRENT_DATE + INTERVAL '3 days', '17:00')
 ON CONFLICT DO NOTHING;
-

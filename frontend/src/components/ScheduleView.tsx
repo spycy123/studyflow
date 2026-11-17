@@ -29,29 +29,29 @@ export const ScheduleView: React.FC<ScheduleViewProps> = ({
 
   return (
     <div className="space-y-6">
-      {/* Top Banner / Summary with Elegant Academic Gradient */}
-      <div className="p-6 sm:p-7 rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-950 dark:from-zinc-900 dark:via-indigo-950 dark:to-zinc-900 border border-indigo-900/40 text-white shadow-soft-lg flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 relative overflow-hidden">
+      {/* Top Banner / Summary with Plum & Gold Accent */}
+      <div className="p-6 sm:p-7 rounded-3xl bg-gradient-to-r from-plum-950 via-plum-900 to-plum-800 dark:from-plum-950 dark:via-plum-900 dark:to-zinc-950 border border-gold-400/30 text-accent-100 shadow-soft-lg shadow-plum-900/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 relative overflow-hidden">
         {/* Subtle background glow circle */}
-        <div className="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-blue-500/10 blur-2xl pointer-events-none" />
+        <div className="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-gold-400/10 blur-2xl pointer-events-none" />
         <div className="relative z-10">
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-[11px] uppercase tracking-wider font-bold text-indigo-300 bg-indigo-500/20 px-2.5 py-0.5 rounded-full border border-indigo-400/30">
+            <span className="text-[11px] uppercase tracking-wider font-bold text-gold-300 bg-plum-800/80 px-2.5 py-0.5 rounded-full border border-gold-400/40 shadow-xs">
               Jadwal Kuliah Mingguan
             </span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white mt-1">
+          <h2 className="text-xl sm:text-2xl font-black tracking-tight text-accent-100 mt-1">
             Agenda Perkuliahan & Ruangan Kelas
           </h2>
-          <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-xl">
-            Total <span className="font-bold text-white">{courses.length} Mata Kuliah</span> terdaftar semester ini dengan beban <span className="font-bold text-white">{totalSks} SKS</span>.
+          <p className="text-xs sm:text-sm text-accent-200/80 mt-1 max-w-xl">
+            Total <span className="font-bold text-gold-300">{courses.length} Mata Kuliah</span> terdaftar semester ini dengan beban <span className="font-bold text-gold-300">{totalSks} SKS</span>.
           </p>
         </div>
 
         <button
           onClick={onOpenCourseModal}
-          className="relative z-10 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-md transition active:scale-95 flex-shrink-0"
+          className="relative z-10 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-plum-600 hover:bg-plum-700 text-accent-100 border border-gold-400/40 hover:border-gold-400 font-bold text-xs shadow-md transition active:scale-95 flex-shrink-0"
         >
-          <Plus className="w-4 h-4" />
+          <Plus className="w-4 h-4 text-gold-300" />
           <span>Kelola Mata Kuliah</span>
         </button>
       </div>
@@ -69,8 +69,8 @@ export const ScheduleView: React.FC<ScheduleViewProps> = ({
               onClick={() => setSelectedDay(day)}
               className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition flex-shrink-0 ${
                 isSelected
-                  ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/20'
-                  : 'bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:border-slate-300'
+                  ? 'bg-plum-600 text-accent-100 shadow-sm border border-gold-400/40'
+                  : 'bg-white dark:bg-plum-950 border border-slate-200/80 dark:border-plum-800 text-slate-700 dark:text-zinc-300 hover:border-plum-400'
               }`}
             >
               <span>{day}</span>
@@ -78,8 +78,8 @@ export const ScheduleView: React.FC<ScheduleViewProps> = ({
                 <span
                   className={`text-[9px] px-1.5 py-0.2 rounded-full uppercase tracking-wider font-bold ${
                     isSelected
-                      ? 'bg-white/20 text-white'
-                      : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-300/40'
+                      ? 'bg-gold-400 text-plum-950 font-black'
+                      : 'bg-gold-100 text-gold-900 dark:bg-gold-950/70 dark:text-gold-300 border border-gold-300/40'
                   }`}
                 >
                   Hari Ini
@@ -89,8 +89,8 @@ export const ScheduleView: React.FC<ScheduleViewProps> = ({
                 <span
                   className={`text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold ${
                     isSelected
-                      ? 'bg-white text-blue-600'
-                      : 'bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400'
+                      ? 'bg-accent-100 text-plum-950'
+                      : 'bg-slate-100 dark:bg-plum-900 text-slate-600 dark:text-zinc-300'
                   }`}
                 >
                   {dayCount}
