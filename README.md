@@ -155,7 +155,7 @@ npm run docker:down
 
 ---
 
-## 📡 Spesifikasi Endpoint REST API (v1)
+##  Spesifikasi Endpoint REST API (v1)
 
 | Metode | Endpoint | Deskripsi | Hak Akses |
 | :--- | :--- | :--- | :--- |
