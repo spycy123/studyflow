@@ -11,7 +11,7 @@ Seluruh dokumentasi teknis, cetak biru arsitektur, dan matriks hak akses disimpa
 - **[Pusat Dokumentasi (docs/README.md)](./docs/README.md)**: Indeks navigasi lengkap seluruh dokumentasi.
 - **[Arsitektur Sistem (docs/architecture/system-architecture.md)](./docs/architecture/system-architecture.md)**: Arsitektur C4, diagram alur sistem, state machine tugas, dan strategi deployment.
 - **[Desain Basis Data & ERD (docs/architecture/database-erd.md)](./docs/architecture/database-erd.md)**: Skema PostgreSQL, diagram ERD Mermaid, B-Tree indexes, dan migrasi versi.
-- **[Role Pengguna & Matriks Hak Akses (docs/roles/application-roles.md)](./docs/roles/application-roles.md)**: Rincian peran pengguna (Mahasiswa, Dosen, Admin) dan matriks hak akses CRUD (RBAC).
+- **[Role Pengguna & Matriks Hak Akses (docs/roles/application-roles.md)](./docs/roles/application-roles.md)**: Rincian peran pengguna (**Mahasiswa**, **Dosen**, **Admin**) dan matriks hak akses CRUD (RBAC).
 - **[Role Tim Rekayasa Monorepo (docs/roles/engineering-roles.md)](./docs/roles/engineering-roles.md)**: Pembagian tanggung jawab tim rekayasa (Frontend, Backend, DBA, DevOps, QA).
 - **[Spesifikasi REST API (docs/api/api-specification.md)](./docs/api/api-specification.md)**: Spesifikasi endpoint REST API v1, format JSON, dan kode status HTTP.
 - **[Rencana Pengujian QA (qa/test-plan.md)](./qa/test-plan.md)**: Matriks rencana pengujian fungsional, performa, dan keamanan.
@@ -65,9 +65,9 @@ Aplikasi telah dilengkapi dengan data benih (*seed data*) dan tombol **1-Klik De
 
 | Role | Identitas (NIM/NIP/ID) | Kata Sandi | Nama Pengguna | Karakteristik Akses |
 | :--- | :--- | :--- | :--- | :--- |
-| ** Mahasiswa** | `220101034` | `mahasiswa123` | Fajar Pratama | Kelola tugas Kanban, jadwal kuliah, timer Pomodoro, simulasi nilai & IPS, ekspor JSON lokal. |
-| ** Dosen** | `198504122010121001` | `dosen123` | Dr. Aris Subagyo, M.Kom | Monitoring jadwal ajar, peninjauan beban penugasan, badge pendidik emerald. |
-| ** Admin** | `ADMIN001` | `admin123` | Administrator Akademik | Pemantauan kesehatan server (`/health`), verifikasi master data, badge admin violet. |
+| **Mahasiswa** | `220101034` | `mahasiswa123` | Fajar Pratama | Kelola tugas Kanban, jadwal kuliah, timer Pomodoro, simulasi nilai & IPS, ekspor JSON lokal. |
+| **Dosen** | `198504122010121001` | `dosen123` | Dr. Aris Subagyo, M.Kom | Monitoring jadwal ajar, peninjauan beban penugasan, badge pendidik emerald. |
+| **Admin** | `ADMIN001` | `admin123` | Administrator Akademik | Pemantauan kesehatan server (`/health`), verifikasi master data, badge admin violet. |
 
 ---
 
@@ -160,14 +160,14 @@ npm run docker:down
 | Metode | Endpoint | Deskripsi | Hak Akses |
 | :--- | :--- | :--- | :--- |
 | **POST** | `/api/v1/auth/login` | Otentikasi pengguna berdasarkan NIM/NIP dan password | Publik |
-| **POST** | `/api/v1/auth/register` | Pendaftaran akun mahasiswa/dosen/admin baru | Publik |
+| **POST** | `/api/v1/auth/register` | Pendaftaran akun **Mahasiswa**/**Dosen**/**Admin** baru | Publik |
 | **GET** | `/api/v1/tasks` | Mengambil daftar tugas (filter status, priority, courseId) | Terotentikasi |
-| **POST** | `/api/v1/tasks` | Membuat tugas perkuliahan baru | Mahasiswa / Admin |
-| **PUT** | `/api/v1/tasks/:id` | Memperbarui data tugas atau status (`todo`, `in_progress`, `review`, `done`) | Mahasiswa / Admin |
-| **DELETE**| `/api/v1/tasks/:id` | Menghapus tugas | Mahasiswa / Admin |
+| **POST** | `/api/v1/tasks` | Membuat tugas perkuliahan baru | **Mahasiswa** / **Admin** |
+| **PUT** | `/api/v1/tasks/:id` | Memperbarui data tugas atau status (`todo`, `in_progress`, `review`, `done`) | **Mahasiswa** / **Admin** |
+| **DELETE**| `/api/v1/tasks/:id` | Menghapus tugas | **Mahasiswa** / **Admin** |
 | **GET** | `/api/v1/courses` | Mengambil daftar jadwal mata kuliah semester | Terotentikasi |
-| **POST** | `/api/v1/courses` | Mendaftarkan mata kuliah baru | Mahasiswa / Admin |
-| **PUT** | `/api/v1/courses/:id` | Memperbarui jadwal atau target nilai mata kuliah | Mahasiswa / Admin |
-| **DELETE**| `/api/v1/courses/:id` | Menghapus mata kuliah | Mahasiswa / Admin |
+| **POST** | `/api/v1/courses` | Mendaftarkan mata kuliah baru | **Mahasiswa** / **Admin** |
+| **PUT** | `/api/v1/courses/:id` | Memperbarui jadwal atau target nilai mata kuliah | **Mahasiswa** / **Admin** |
+| **DELETE**| `/api/v1/courses/:id` | Menghapus mata kuliah | **Mahasiswa** / **Admin** |
 | **GET** | `/api/v1/analytics` | Ringkasan statistik tugas dan proyeksi nilai IPS | Terotentikasi |
 | **GET** | `/health` | Pemeriksaan kesehatan layanan server | Publik / Monitoring |
