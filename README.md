@@ -1,10 +1,10 @@
-# StudyFlow — Academic Task & Coursework Management System
+# StudyFlow Academic Task & Coursework Management System
 
 Sistem manajemen tugas perkuliahan, jadwal mata kuliah mingguan, pelacak beban SKS, timer fokus Pomodoro, dan simulasi indeks prestasi semester (IPS) dengan arsitektur **Modular Monorepo** dan konsep **Offline-First Hybrid**.
 
 ---
 
-## 📚 Dokumentasi Proyek (`docs/`)
+##  Dokumentasi Proyek (`docs/`)
 
 Seluruh dokumentasi teknis, cetak biru arsitektur, dan matriks hak akses disimpan terpusat dalam folder **[`docs/`](./docs/README.md)**:
 
@@ -18,7 +18,7 @@ Seluruh dokumentasi teknis, cetak biru arsitektur, dan matriks hak akses disimpa
 
 ---
 
-## 🏛️ Arsitektur Repositori
+##  Arsitektur Repositori
 
 ```
 jajal/
@@ -59,19 +59,19 @@ jajal/
 
 ---
 
-## 👥 Akun Demo & Hak Akses Cepat (3 Role)
+##  Akun Demo & Hak Akses Cepat (3 Role)
 
 Aplikasi telah dilengkapi dengan data benih (*seed data*) dan tombol **1-Klik Demo** pada halaman login untuk ketiga role:
 
 | Role | Identitas (NIM/NIP/ID) | Kata Sandi | Nama Pengguna | Karakteristik Akses |
 | :--- | :--- | :--- | :--- | :--- |
-| **🎓 Mahasiswa** | `220101034` | `mahasiswa123` | Fajar Pratama | Kelola tugas Kanban, jadwal kuliah, timer Pomodoro, simulasi nilai & IPS, ekspor JSON lokal. |
-| **👨‍🏫 Dosen** | `198504122010121001` | `dosen123` | Dr. Aris Subagyo, M.Kom | Monitoring jadwal ajar, peninjauan beban penugasan, badge pendidik emerald. |
-| **🛡️ Admin** | `ADMIN001` | `admin123` | Administrator Akademik | Pemantauan kesehatan server (`/health`), verifikasi master data, badge admin violet. |
+| ** Mahasiswa** | `220101034` | `mahasiswa123` | Fajar Pratama | Kelola tugas Kanban, jadwal kuliah, timer Pomodoro, simulasi nilai & IPS, ekspor JSON lokal. |
+| ** Dosen** | `198504122010121001` | `dosen123` | Dr. Aris Subagyo, M.Kom | Monitoring jadwal ajar, peninjauan beban penugasan, badge pendidik emerald. |
+| ** Admin** | `ADMIN001` | `admin123` | Administrator Akademik | Pemantauan kesehatan server (`/health`), verifikasi master data, badge admin violet. |
 
 ---
 
-## 🚀 Panduan Menjalankan Sistem
+##  Panduan Menjalankan Sistem
 
 ### Persyaratan Sistem:
 - **Node.js**: Versi 20 LTS atau lebih tinggi
